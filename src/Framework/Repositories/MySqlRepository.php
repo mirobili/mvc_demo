@@ -48,6 +48,6 @@ class MySqlRepository extends RepositoryBase implements RepositoryInterface
     }
     public  function delete(Model $model)
     {
-        // TODO: Implement delete() method.
+            // TODO: Implement delete() method.
     }
 }
