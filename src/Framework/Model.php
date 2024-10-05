@@ -2,7 +2,7 @@
 
 namespace App\Framework;
 
-class Model
+class Model extends ModelInterface
 {
     public function __construct()
     {

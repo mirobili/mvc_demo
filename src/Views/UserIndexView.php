@@ -6,5 +6,5 @@ use App\Framework\View;
 
 class UserIndexView extends View
 {
-    static  $template_name = 'user.index';
+    static string  $template_name = 'user.index';
 }
