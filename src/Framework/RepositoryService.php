@@ -2,7 +2,7 @@
 
 namespace App\Framework;
 
-use MongoDB\Driver\Exception\LogicException;
+
 
 class RepositoryService
 {

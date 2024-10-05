@@ -2,11 +2,10 @@
 
 namespace App\Framework;
 
-use http\Env\Request;
 
 class Router
 {
-    private static $server = [];
+    private static array $server = [];
 
 
     public static function get(string $route, string $controller_class, string $action, $params)
@@ -56,15 +55,15 @@ class Router
         self::$server = $server;
     }
 
-    public function handle()
-    {
-
-
-        trace($path);
-        trace($request);
-
-        require_once './routes.php';
-    }
+//    public function handle()
+//    {
+//
+//
+//        trace($path);
+//        trace($request);
+//
+//        require_once './routes.php';
+//    }
 
 }
 

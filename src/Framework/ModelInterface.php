@@ -2,7 +2,7 @@
 
 namespace App\Framework;
 
-class RestController
+class ModelInterface
 {
 
 }

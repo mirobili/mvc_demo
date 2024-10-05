@@ -8,7 +8,7 @@ use App\Framework\RepositoryInterface;
 
 class MySqlRepository extends RepositoryBase implements RepositoryInterface
 {
-    public function findAll(Model $model)
+    public function findAll(Model $model):array
     {
         $table = $model::class;
         $qry = "select * from $table "; // TODO: Implement findAll() method.""

@@ -2,12 +2,13 @@
 
 namespace App\Services;
 
+use App\Framework\RepositoryInterface;
 use App\Models\UserModel;
-use App\Repository;
+
 
 class UserService
 {
-    public function __construct(private Repository $repository)
+    public function __construct(private RepositoryInterface $repository)
     {
     }
     public function getUser($userId) : UserModel

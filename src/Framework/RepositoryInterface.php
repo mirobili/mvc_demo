@@ -13,4 +13,6 @@ interface RepositoryInterface
     public function update(Model $model);
 
     public function delete(Model $model);
+
+    public function save($model);
 }

@@ -12,8 +12,8 @@ class Model
         return [];
     }
 
-    public function find($id)
+    public function find($id): ModelInterface
     {
-        return '';
+        return new Model();
     }
 }

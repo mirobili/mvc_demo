@@ -6,7 +6,7 @@ use App\Views\UserIndexView;
 
 class View
 {
-    protected static   $template_name = 'user.index';
+    protected static string  $template_name = 'user.index';
     public static function render(array $data)
     {
         $template  = self::loadTemplate(self::$template_name);
