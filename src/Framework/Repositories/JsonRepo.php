@@ -33,4 +33,8 @@ class JsonRepo extends RepositoryBase implements RepositoryInterface
     {
         // TODO: Implement delete() method.
     }
+        public function save($model)
+        {
+            // TODO: Implement save() method.
+        }
 }
