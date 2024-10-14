@@ -2,10 +2,10 @@
 
 namespace App\Framework;
 
-use App\Framework\database\Storage;
+use App\Storage\Storage;
 use Exception;
 
-class Entity
+class Entity implements EntityInterface
 {   public  static string $table_name = 'contract';
     protected static array $relations = [];
 

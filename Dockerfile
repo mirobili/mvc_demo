@@ -1,5 +1,5 @@
 # Dockerfile
-FROM php:8.0-apache
+FROM php:8.3-apache
 
 # Install necessary extensions
 RUN apt-get update && apt-get install -y \
@@ -8,11 +8,16 @@ RUN apt-get update && apt-get install -y \
     libfreetype6-dev \
     vim \
     less \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install -j$(nproc) gd \
-    && docker-php-ext-install pdo pdo_mysql \
-    && a2enmod rewrite \
-    && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+    zip \
+    unzip && \
+    docker-php-ext-configure gd --with-freetype --with-jpeg && \
+    docker-php-ext-install -j$(nproc) gd pdo pdo_mysql && \
+    a2enmod rewrite && \
+    curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+
+#RUN composer install
+
 
 # Set working directory
 WORKDIR /var/www/html

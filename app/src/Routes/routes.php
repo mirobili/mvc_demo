@@ -2,17 +2,13 @@
 
 namespace App;
 
+use App\Controllers\HtmxController;
 use App\Controllers\ContractController;
 use App\Controllers\CustomerController;
-use App\Controllers\HtmxController;
+use App\Controllers\DefaultController;
 use App\Controllers\RatesController;
 use App\Controllers\Rest\CustomerRestController;
-use App\Controllers\UserController;
-use App\Controllers\DefaultController;
-use App\Controllers\UserRestController;
 use App\Framework\Router;
-use App\Views\UserIndexView;
-
 
 
 /***********************************************************************************************************************/
@@ -67,7 +63,7 @@ Router::route('GET', '/entity/{class}/{id}', CustomerController::class, 'get_ent
 
 /***********************************************************************************************************************/
 
-Router::route('GET', '/RestController', UserRestController::class, 'index', []);
+//Router::route('GET', '/RestController', UserRestController::class, 'index', []);
 
 /***********************************************************************************************************************/
 
@@ -92,11 +88,11 @@ Router::route('GET', '/rates/{code}/{param2}', RatesController::class, 'currency
 Router::route('GET', '/rates/{code}', RatesController::class, 'currency');
 
 /***********************************************************************************************************************/
-
-Router::route('GET', '/user/hello', UserController::class, 'index', $name ?? null);
-Router::route('GET', '/user/index', UserIndexView::class, 'render', ['name' => '1111111111111'] ?? null);
-Router::route('GET', '/user/hello/{id}', UserController::class, 'index', $name2 ?? null);
-Router::route('GET', '/user/hello/{id}', UserController::class, 'default', $name2 ?? null);
+//
+//Router::route('GET', '/user/hello', UserController::class, 'index', $name ?? null);
+//Router::route('GET', '/user/index', UserIndexView::class, 'render', ['name' => '1111111111111'] ?? null);
+//Router::route('GET', '/user/hello/{id}', UserController::class, 'index', $name2 ?? null);
+//Router::route('GET', '/user/hello/{id}', UserController::class, 'default', $name2 ?? null);
 
 /***********************************************************************************************************************/
 

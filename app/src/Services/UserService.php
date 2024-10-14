@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Framework\RepositoryInterface;
-use App\Models\UserModel;
+use App\Models\_deleteme\UserModel;
 
 
 class UserService

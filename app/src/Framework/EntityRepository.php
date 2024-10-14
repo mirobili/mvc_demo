@@ -2,6 +2,9 @@
 
 namespace App\Framework;
 
+use App\Storage\Storage;
+use Exception;
+
 class EntityRepository
 {
     public static function get($class_name, $id)
@@ -56,7 +59,7 @@ class EntityRepository
     {
         Storage::delete($entity);
     }
-    public satic function save($entity)
+    public static function save($entity)
     {
         $entity->get_storage()->save($entity);
     }

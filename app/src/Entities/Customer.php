@@ -3,7 +3,6 @@
 namespace App\Entities;
 
 use App\Framework\Entity;
-use App\Framework\database\Storage;
 
 class Customer extends Entity
 {
@@ -12,13 +11,7 @@ class Customer extends Entity
 
     public static array $fillable = ['id', 'name', 'address', 'phone', 'email','created_at','updated_at'];
 
-    protected static array $relations = [
-        "contracts" => [
-            'type' => 'hasMany'
-            , 'local' => 'id'
-            , 'references' => 'App\Entities\Contract.customer_id'
-        ]
-    ];
+
 
 
     public function __construct(protected   $id='',protected string $name='', protected string $address='',  protected string $phone='', protected string $email='', protected string $created_at='', protected string $updated_at='')
@@ -26,7 +19,13 @@ class Customer extends Entity
 
     }
 
-
+    protected static array $relations = [
+        "contracts" => [
+            'type' => 'hasMany'
+            , 'local' => 'id'
+            , 'references' => 'App\Entities\Contract.customer_id'
+        ]
+    ];
 
 
     public function getContracts(){
