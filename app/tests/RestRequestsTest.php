@@ -96,6 +96,8 @@ class RestRequestsTest extends TestCase
 
         $customer = Customer::updateFromArray($customer,$array);
         //$this->assertEquals("", $customer->getId());
+        trace($customer);
+
         $customer->save();
         $this->assertNotEquals(0, $customer->getId());
 

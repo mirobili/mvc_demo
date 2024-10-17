@@ -12,7 +12,7 @@
 
 ?>
 <!--- <form method="POST" action="/customer/save" enctype="multipart/form-data"> -->
-<form method="POST" action="/customer/save"  >
+<form method="POST" action="{{__form_action}}"  >
     <div class="form-group">
          <label for="id">Id</label>
         <input type="hidden" name="id" id="id" value="{{id}}" class="form-control"> {{id}}

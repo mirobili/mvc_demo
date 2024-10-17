@@ -27,5 +27,5 @@ WORKDIR /var/www/html
 
 RUN echo '<Directory /var/www/html/>\n\
     AllowOverride All\n\
-</Directory>' > /etc/apache2/conf-available/override.conf && \
+    </Directory>' > /etc/apache2/conf-available/override.conf && \
     a2enconf override

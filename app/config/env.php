@@ -1,4 +1,4 @@
 <?php
-
-$env = getenv();
-//trace($env['CUSTOM_DATABASE']??'');
+//
+//$env = getenv();
+//print_r($env);

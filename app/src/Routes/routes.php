@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Controllers\CustomerControllerDemo;
 use App\Controllers\HtmxController;
 use App\Controllers\ContractController;
 use App\Controllers\CustomerController;
@@ -25,7 +26,7 @@ $request = (!empty($_REQUEST)) ? $_REQUEST : json_decode(file_get_contents("php:
 Router::handle('/customer_rest', CustomerRestController::class, $request);
 Router::handle('/contract_rest', ContractRestController::class, $request);
 
-
+// dd(Router::getRoutes());
 
 /***********************************************************************************************************************/
 
@@ -43,6 +44,25 @@ Router::handle('/contract_rest', ContractRestController::class, $request);
 
 
 Router::route('GET', '/test', DefaultController::class, 'index', []);
+
+Router::route('GET', '/customer_demo', CustomerControllerDemo::class, 'list');
+Router::route('GET', '/customer_demo/new', CustomerControllerDemo::class, 'form');
+Router::route('GET', '/customer_demo/{id}', CustomerControllerDemo::class, 'details');
+Router::route('GET', '/customer_demo/{id}/edit', CustomerControllerDemo::class, 'form');
+Router::route('GET', '/customer_demo/{id}/json', CustomerControllerDemo::class, 'get_customer');
+Router::route('GET', '/customer_demo/form', CustomerControllerDemo::class, 'form');
+Router::route('GET', '/customer_demo/list', CustomerControllerDemo::class, 'list');
+Router::route('GET', '/customer_demo/list/{id}', CustomerControllerDemo::class, 'get_customer');
+
+
+Router::route('POST', '/customer_demo/save', CustomerController::class, 'save', $_POST, '/customer_demo/{id}');
+
+
+
+
+
+
+
 Router::route('GET', '/customer', CustomerController::class, 'list');
 Router::route('GET', '/customer/new', CustomerController::class, 'form');
 Router::route('GET', '/customer/{id}', CustomerController::class, 'form');

@@ -57,6 +57,12 @@ class Storage
 
         $toArray = $entity->toArray();
 
+        foreach($entity::class::readonly() as $key) {
+            //trace("unsetting $key");
+            unset($toArray[$key]);
+           // unset($toArray['updated_at']);
+        }// ()$
+
         unset($toArray['created_at']);
         unset($toArray['updated_at']);
 

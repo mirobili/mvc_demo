@@ -4,10 +4,11 @@ namespace App\Controllers\Rest;
 
 use App\Entities\Customer;
 use App\Framework\Entity;
-use App\Framework\RestController;
+//use App\Framework\RestController;
+use App\Framework\RestControllerBase;
 use App\Framework\RestControllerInterface;
 
-class CustomerRestController extends RestController implements RestControllerInterface
+class CustomerRestController extends RestControllerBase implements RestControllerInterface
 {
 
 
@@ -19,6 +20,8 @@ class CustomerRestController extends RestController implements RestControllerInt
 
         // return $request;
 
+
+
         $ee = Customer::makeFromArray($request);
 
        // return $ee->toArray();
@@ -29,8 +32,16 @@ class CustomerRestController extends RestController implements RestControllerInt
 
     public static function actionPut( $request ){
         $ee= Customer::get($request['id']);
+
+        trace($ee);
         $ee= Customer::updateFromArray($ee, $request);
+
+
+        trace($ee);
+        //dd();
+
         $ee->save();
+       // dd($ee);
         return $ee->toArray();
     }
     public static function actionPatch( $request ){

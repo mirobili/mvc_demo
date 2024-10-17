@@ -9,7 +9,9 @@ class Customer extends Entity
     public static string $table_name = 'customer';
    // protected string $id, $name, $address, $phone, $email,$created_at,$updated_at;
 
+   // public static array $fillable = ['id', 'name', 'address', 'phone', 'email','created_at','updated_at'];
     public static array $fillable = ['id', 'name', 'address', 'phone', 'email','created_at','updated_at'];
+    public static array $readonly = ['created_at','updated_at'];
 
 
 

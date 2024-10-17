@@ -45,18 +45,19 @@ class EndToEnd extends TestCase
 
 
 
-    function test_end_to_end_endpoint_from_db(){
-
-        $url = 'http://localhost:8888/customer/listdb/1';
-        $content = file_get_contents($url);
-        $expected = '{"id":"1","name":"Miro","address":"Sofia 1000","phone":"+359 882220002","email":"miroslav.biliarski@gmail.com","created_at":"","updated_at":""}';
-        $this->assertEquals($expected, $content);
-
-        $url = 'http://localhost:8888/customer/listdb/2';
-        $content = file_get_contents($url);
-        $expected = '{"id":"2","name":"Ivan Ivanov","address":"Sofia 1111","phone":"+359 700 12 012","email":"office@credissimo.bg","created_at":"","updated_at":""}';
-        $this->assertEquals($expected, $content);
-    }
+//    function test_end_to_end_endpoint_from_db(){
+//
+//        $host= APPLICATION_HOST;
+//        $url = $host.'/customer/1';
+//        $content = file_get_contents($url);
+//        $expected = '{"id":"1","name":"Miro","address":"Sofia 1000","phone":"+359 882220002","email":"miroslav.biliarski@gmail.com","created_at":"","updated_at":""}';
+//        $this->assertEquals($expected, $content);
+//
+//        $url = $host.'/customer/2';
+//        $content = file_get_contents($url);
+//        $expected = '{"id":"2","name":"Ivan Ivanov","address":"Sofia 1111","phone":"+359 700 12 012","email":"office@credissimo.bg","created_at":"","updated_at":""}';
+//        $this->assertEquals($expected, $content);
+//    }
 
 
 

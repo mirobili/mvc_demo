@@ -3,35 +3,30 @@
 //const ROOT_DIR = 'C:\www\Credissimo\mvc';
 //const TEMPLATES_DIR = ROOT_DIR . '\src\Views\Templates\\';
 
+//$db_config ['host'] =   $_ENV['A']     ?? $LocalConfig['MYSQL_HOST'];
 
 
+const APPLICATION_HOST = 'http://localhost:8888';
+
+$LocalConfig = [
+    'MYSQL_HOST' =>   'localhost',
+    'MYSQL_PORT' =>   '3333',
+    'MYSQL_DATABASE' =>      'mvc_db',
+    'MYSQL_USER' =>   'mvc_user',
+    'MYSQL_PASSWORD' =>   'mvc_password',
+    'MYSQL_CHARSET' =>'utf8mb4',
+  ];
 
 
-// $host = '192.168.0.114';
-//            $host = 'localhost';
-//            $host = 'db';
-//            $port = '3306';
-//            $db = 'mvcdemo';
-//            $user = 'mvcdemo';
-//            $pass = 'mvcdemo2004';
-//            $charset = 'utf8mb4';
-
-const DB_CONNECTION = [
-
-//    $host = 'localhost';
-    'host' => 'db',
-   // 'host' => '192.168.0.114',
-    'port' => '3306',
-    'db' => 'mvc_db',
-    'user' => 'mvc_user',
-    'pass' => 'mvc_password',
-    'charset' => 'utf8mb4',
-
-];
+$db_config ['host'] =   $_ENV['MYSQL_HOST']     ?? $LocalConfig['MYSQL_HOST'];
+$db_config['port']  =   $_ENV['MYSQL_PORT']     ?? $LocalConfig['MYSQL_PORT'];
+$db_config['db']    =   $_ENV['MYSQL_DATABASE'] ?? $LocalConfig['MYSQL_DATABASE'] ;
+$db_config['user']  =   $_ENV['MYSQL_USER']     ?? $LocalConfig['MYSQL_USER'] ;
+$db_config['pass']  =   $_ENV['MYSQL_PASSWORD'] ?? $LocalConfig['MYSQL_PASSWORD'];
+$db_config['charset']=  $_ENV['MYSQL_CHARSET']  ?? $LocalConfig['MYSQL_CHARSET'];
 
 
-// $host = '192.168.0.114';
-
+define("DB_CONNECTION", $db_config);
 
 
 const ROOT_DIR = __DIR__ . '/../';

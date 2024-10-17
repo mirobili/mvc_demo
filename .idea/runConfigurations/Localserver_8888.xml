@@ -1,5 +1,15 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Localserver 8888" type="PhpBuiltInWebServerConfigurationType" factoryName="PHP Built-in Web Server" document_root="$PROJECT_DIR$" port="8888">
+  <configuration default="false" name="Localserver 8888" type="PhpBuiltInWebServerConfigurationType" factoryName="PHP Built-in Web Server" document_root="$PROJECT_DIR$/app" port="8888">
+    <CommandLine>
+      <envs>
+        <env name="charset" value="utf8mb4" />
+        <env name="db_host" value="192.168.0.114" />
+        <env name="db_name" value="mvc_db" />
+        <env name="db_pass" value="mvc_password" />
+        <env name="db_port" value="3306" />
+        <env name="db_user" value="mvc_user" />
+      </envs>
+    </CommandLine>
     <method v="2">
       <option name="LaunchBrowser.Before.Run" browser="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" url="localhost:8888" />
     </method>

@@ -7,7 +7,11 @@ use Exception;
 
 class Entity implements EntityInterface
 {   public  static string $table_name = 'contract';
+
+    protected static array $fillable = [];
+    protected static array $readonly = [];
     protected static array $relations = [];
+
 
     public function __construct()
     {
@@ -16,6 +20,9 @@ class Entity implements EntityInterface
     }
     public static function filable() {
         return static::$fillable;
+    }
+    public static function readonly() {
+        return static::$readonly;
     }
 
     static function getTableName() {
@@ -68,12 +75,33 @@ class Entity implements EntityInterface
     public static function makeFromArray($array)
     {
 
-        //trace($array);
+
+
         $class_name =  static::class;
+
+        ///$object= new $class_name();
+//        if(isset($array['id'])){
+//            $object = $class_name::get($array['id']);
+//        }else{
+//            $object= new $class_name();
+//        }
         $object= new $class_name();
+//        return $object;
+//
+//        dd($class_name);
+//        return $class_name;
+//
+//
+//
+//        trace($class_name);
+//        trace($array);
+//        trace($object);
+
+
 
         foreach(static::$fillable as $key  ){
             if(isset($array[$key])){
+
 //                $setter_name = self::generateAccessor($key,'set');
 //                $object->$setter_name($array[$key]);
                 $object->setVar( $key , $array[$key]);
@@ -87,10 +115,14 @@ class Entity implements EntityInterface
     {
         //$class_name =  static::class;
        // $object= new $class_name();
+//        trace($object);
+//        trace($array);
         foreach(static::$fillable as $key  ){
             if(isset($array[$key])){
 //                $setter_name = self::generateAccessor($key,'set');
 //                $object->$setter_name($array[$key]);
+               // trace("\$object->setVar( $key , \$array[$key]);");
+
                 $object->setVar( $key , $array[$key]);
             }
         }
@@ -145,7 +177,7 @@ class Entity implements EntityInterface
 
     public static function get($id): object
     {
-        return self::findByID($id);
+        return static::findByID($id);
     }
 
     public static function findByID($id): object

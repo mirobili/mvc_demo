@@ -4,7 +4,7 @@ namespace App\Framework;
 
 use App\Framework\Controller;
 
-class RestController implements RestControllerInterface
+class RestControllerBase implements RestControllerInterface
 {
 
     public static function actionGet( $request ){

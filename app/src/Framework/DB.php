@@ -15,33 +15,20 @@ class DB
     {
 
         # Set db conn parameters in /config/config.php
-        $conn = DB_CONNECTION;
 
-        // $host = '192.168.0.114';
-//            $host = 'localhost';
-//            $host = 'db';
-//            $port = '3306';
-//            $db = 'mvcdemo';
-//            $user = 'mvcdemo';
-//            $pass = 'mvcdemo2004';
-//            $charset = 'utf8mb4';
+       // $conn = DB_CONNECTION;
 
 
-        $db_host = $conn['host'];
-        $db_port = $conn['port'];
-        $db_name = $conn['db'];
-        $db_user = $conn['user'];
-        $db_pass = $conn['pass'];
-        $db_charset = $conn['charset'] ?? 'utf8mb4';
+        $db_host = DB_CONNECTION['host'];
+        $db_port = DB_CONNECTION['port'];
+        $db_name = DB_CONNECTION['db'];
+        $db_user = DB_CONNECTION['user'];
+        $db_pass = DB_CONNECTION['pass'];
+        $db_charset = DB_CONNECTION['charset']  ;
 
 //            $user = 'root';
 //            $pass = 'root';
-        $env= getenv();
-        $db_host = $env['db_host'] ?? $db_host;
-        $db_port = $env['db_port'] ?? $db_port;
-        $db_name = $env['db_name'] ?? $db_name;
-        $db_user = $env['db_user'] ?? $db_user;
-        $db_pass = $env['db_pass'] ?? $db_pass;
+
 
         $dsn = "mysql:host=$db_host;port=$db_port;dbname=$db_name;charset=$db_charset";
 

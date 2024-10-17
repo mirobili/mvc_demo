@@ -1,4 +1,6 @@
 version: '3.8'
+# container redirect ports and DB PARAMS are set in the .env file in the current directory
+
 services:
   web:
     build:
@@ -7,17 +9,27 @@ services:
     volumes:
       - ./app:/var/www/html
     ports:
-      - "8080:80"
+#      - "8888:80"
+      - "${WEB_PORT:-8888}:80"  # Default to 8888 if not set -- see  .env file
+    environment:
+      MYSQL_HOST: db
+      MYSQL_PORT: 3306
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+        
     command: bash -c "composer install && apache2-foreground"
   db:
     image: mysql:8.0
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: mvc_db
-      MYSQL_USER: mvc_user
-      MYSQL_PASSWORD: mvc_password
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+        
     volumes:
       - ./mysql-init:/docker-entrypoint-initdb.d
     ports:
-      - "3307:3306"
+#      - "3333:3306"
+      - "${DB_PORT:-3333}:3306"  # Default to 3333 if not set
     restart: unless-stopped

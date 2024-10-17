@@ -7,20 +7,32 @@ use App\Entities\Customer;
 use App\Framework\Controller;
 use App\Framework\DB;
 use App\Framework\Entity;
+use App\Views\Components\HtmlDetails;
 use App\Views\Components\HtmlTable;
+use App\Views\CustomerDetailsView;
 use App\Views\CustomerFormView;
 use App\Views\Templates\CustomerListView;
 
 
-class CustomerController extends Controller
+class CustomerControllerDemo extends Controller
 {
     public function form($id = '')
     {
         $customer = Customer::get($id);
         $data  = $customer->toArray();
-        $data['__form_action'] = '/customer/save';
+        $data['__form_action'] = '/customer_demo/save';
 
         return CustomerFormView::render($data);
+    }
+    public function details($id = '')
+    {
+        $customer = Customer::get($id);
+        $data  = $customer->toArray();
+       // $data['__form_action'] = '/customer_demo/save';
+    //    return HtmlDetails::render($data);
+
+          return CustomerDetailsView::render($data);
+
     }
 
 

@@ -39,18 +39,6 @@
       <path value="$PROJECT_DIR$/vendor/phpunit/php-timer" />
       <path value="$PROJECT_DIR$/vendor/sebastian/code-unit-reverse-lookup" />
       <path value="$PROJECT_DIR$/vendor/phpunit/phpunit" />
-      <path value="$PROJECT_DIR$/app/vendor/composer" />
-      <path value="$PROJECT_DIR$/app/vendor/nikic/php-parser" />
-      <path value="$PROJECT_DIR$/app/vendor/myclabs/deep-copy" />
-      <path value="$PROJECT_DIR$/app/vendor/phar-io/manifest" />
-      <path value="$PROJECT_DIR$/app/vendor/phar-io/version" />
-      <path value="$PROJECT_DIR$/app/vendor/phpunit/php-code-coverage" />
-      <path value="$PROJECT_DIR$/app/vendor/phpunit/php-file-iterator" />
-      <path value="$PROJECT_DIR$/app/vendor/phpunit/php-invoker" />
-      <path value="$PROJECT_DIR$/app/vendor/phpunit/php-text-template" />
-      <path value="$PROJECT_DIR$/app/vendor/phpunit/php-timer" />
-      <path value="$PROJECT_DIR$/app/vendor/phpunit/phpunit" />
-      <path value="$PROJECT_DIR$/app/vendor/theseer/tokenizer" />
       <path value="$PROJECT_DIR$/app/vendor/sebastian/cli-parser" />
       <path value="$PROJECT_DIR$/app/vendor/sebastian/code-unit" />
       <path value="$PROJECT_DIR$/app/vendor/sebastian/code-unit-reverse-lookup" />
@@ -66,6 +54,18 @@
       <path value="$PROJECT_DIR$/app/vendor/sebastian/recursion-context" />
       <path value="$PROJECT_DIR$/app/vendor/sebastian/type" />
       <path value="$PROJECT_DIR$/app/vendor/sebastian/version" />
+      <path value="$PROJECT_DIR$/app/vendor/composer" />
+      <path value="$PROJECT_DIR$/app/vendor/nikic/php-parser" />
+      <path value="$PROJECT_DIR$/app/vendor/myclabs/deep-copy" />
+      <path value="$PROJECT_DIR$/app/vendor/phar-io/manifest" />
+      <path value="$PROJECT_DIR$/app/vendor/phar-io/version" />
+      <path value="$PROJECT_DIR$/app/vendor/phpunit/php-code-coverage" />
+      <path value="$PROJECT_DIR$/app/vendor/phpunit/php-file-iterator" />
+      <path value="$PROJECT_DIR$/app/vendor/phpunit/php-invoker" />
+      <path value="$PROJECT_DIR$/app/vendor/phpunit/php-text-template" />
+      <path value="$PROJECT_DIR$/app/vendor/phpunit/php-timer" />
+      <path value="$PROJECT_DIR$/app/vendor/phpunit/phpunit" />
+      <path value="$PROJECT_DIR$/app/vendor/theseer/tokenizer" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.0" />
@@ -74,7 +74,7 @@
   </component>
   <component name="PhpUnit">
     <phpunit_settings>
-      <PhpUnitSettings custom_loader_path="$PROJECT_DIR$/vendor/autoload.php" />
+      <PhpUnitSettings custom_loader_path="$PROJECT_DIR$/app/vendor/autoload.php" phpunit_phar_path="" />
     </phpunit_settings>
   </component>
   <component name="PsalmOptionsConfiguration">
