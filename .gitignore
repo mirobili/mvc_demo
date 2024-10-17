@@ -1,3 +1,4 @@
 /app/vendor/
-/_misc/
 /app/composer.lock
+/.idea
+/_misc/
