@@ -8,6 +8,7 @@ use App\Controllers\ContractController;
 use App\Controllers\CustomerController;
 use App\Controllers\DefaultController;
 use App\Controllers\RatesController;
+use App\Controllers\Rest\CustomerModelRestController;
 use App\Controllers\Rest\CustomerRestController;
 use App\Framework\Router;
 
@@ -16,14 +17,16 @@ use App\Framework\Router;
 
         /***** REST CONTROLLERS *****/
 
-//trace($_GET);
-//trace($_POST);
-//trace($_REQUEST);
-$request = (!empty($_REQUEST)) ? $_REQUEST : json_decode(file_get_contents("php://input"), true);
+$input = json_decode(file_get_contents("php://input"), true);
+$request = (!empty($_REQUEST)) ? $_REQUEST : $input;
+
 // $raw_request = json_decode(file_get_contents("php://input"), true);
 
+Router::route('GET', '/', HtmxController::class, 'index'    );
+
  // dd($raw_request);
-Router::handle('/customer_rest', CustomerRestController::class, $request);
+Router::handle('/customer_rest', CustomerRestController::class,  $input );
+Router::handle('/customer_model_rest', CustomerModelRestController::class,  $input );
 Router::handle('/contract_rest', ContractRestController::class, $request);
 
 // dd(Router::getRoutes());
@@ -41,18 +44,28 @@ Router::handle('/contract_rest', ContractRestController::class, $request);
 
 /***********************************************************************************************************************/
 
+Router::route('GET', '/customer_demo/', CustomerControllerDemo::class, 'list',  [$request] );
+//Router::route('GET', '/customer_demo/list', CustomerControllerDemo::class, 'list',  [$request] );
+ Router::route('GET', '/customer_demo/{id}', CustomerControllerDemo::class, 'details' );
+ //Router::route('GET', '/customer_demo/{id}', CustomerControllerDemo::class, 'details',  [$request] );
+//trace(Router::getRoute('GET', '/customer_demo/list'));
+Router::route('GET', '/customer_demo/{id}/add_contract', CustomerControllerDemo::class, 'add_contract' );
+Router::route('GET', '/customer_demo/{id}/contract/{contract_id}', CustomerControllerDemo::class, 'add_contract' );
+Router::route('GET', '/customer_demo/{id}/contract/', CustomerControllerDemo::class, 'add_contract' );
 
 
 Router::route('GET', '/test', DefaultController::class, 'index', []);
+//
+//Router::route('GET', '/customer_demo', CustomerControllerDemo::class, 'list',[$request]);
+//Router::route('GET', '/customer_demo/new', CustomerControllerDemo::class, 'form');
+//Router::route('GET', '/customer_demo/{id}', CustomerControllerDemo::class, 'details');
+ Router::route('GET', '/customer_demo/{id}/edit', CustomerControllerDemo::class, 'form');
+//Router::route('GET', '/customer_demo/{id}/json', CustomerControllerDemo::class, 'get_customer');
+//Router::route('GET', '/customer_demo/form', CustomerControllerDemo::class, 'form');
 
-Router::route('GET', '/customer_demo', CustomerControllerDemo::class, 'list');
-Router::route('GET', '/customer_demo/new', CustomerControllerDemo::class, 'form');
-Router::route('GET', '/customer_demo/{id}', CustomerControllerDemo::class, 'details');
-Router::route('GET', '/customer_demo/{id}/edit', CustomerControllerDemo::class, 'form');
-Router::route('GET', '/customer_demo/{id}/json', CustomerControllerDemo::class, 'get_customer');
-Router::route('GET', '/customer_demo/form', CustomerControllerDemo::class, 'form');
-Router::route('GET', '/customer_demo/list', CustomerControllerDemo::class, 'list');
+
 Router::route('GET', '/customer_demo/list/{id}', CustomerControllerDemo::class, 'get_customer');
+//Router::route('GET', '/customer_demo/list/{id}', CustomerControllerDemo::class, 'get_customer');
 
 
 Router::route('POST', '/customer_demo/save', CustomerController::class, 'save', $_POST, '/customer_demo/{id}');
@@ -87,7 +100,7 @@ Router::route('GET', '/entity/{class}/{id}', CustomerController::class, 'get_ent
 
 /***********************************************************************************************************************/
 
-Router::route('GET', '/', HtmxController::class, 'index'    );
+
 Router::route('GET', '/htmx/load/{path}', HtmxController::class, 'load' ,$_GET ); /////  TODO
 Router::route('GET', '/htmx/{fragment}', HtmxController::class, 'get_fragment');
 Router::route('GET', '/htmx/navigation', HtmxController::class, 'navigation');

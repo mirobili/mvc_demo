@@ -7,7 +7,9 @@ use App\Framework\Entity;
 class Contract extends Entity
 {
    // protected $customer_id,$valid_from,$valid_to,$status,$created_at,$updated_at ;
-    static protected array $fillable = ['id', 'code', 'customer_id', 'valid_from', 'valid_to', 'status', 'created_at', 'updated_at'];
+
+    public static string $_table_name = 'contract';
+    static protected array $_fillable = ['id', 'code', 'customer_id', 'valid_from', 'valid_to', 'status', 'created_at', 'updated_at'];
 
     public function __construct(protected $id=null, protected $code=null, protected $customer_id=null, protected $valid_from=null, protected $valid_to=null, protected $status=null,
                                 protected $created_at=null, protected $updated_at=null)

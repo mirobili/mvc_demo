@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\_deleteme;
 
 use App\Framework\RepositoryInterface;
 use App\Models\_deleteme\UserModel;

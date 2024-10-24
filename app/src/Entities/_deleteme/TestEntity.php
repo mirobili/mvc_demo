@@ -12,8 +12,8 @@ class TestEntity extends Entity
         $this->loadRelations();
     }
 
-    protected static string $table_name = 'test_table';
-    protected static array $relations = [
+    protected static string $_table_name = 'test_table';
+    protected static array $_relations = [
                     'services' => [
                     'type' => 'hasMany'
                     , 'local' => 'id'
