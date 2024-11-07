@@ -2,6 +2,7 @@
 
 namespace App\Storage;
 
+use App\Framework\Cache\RedisCache;
 use App\Framework\DB;
 use App\Framework\Repositories\MySqlRepository;
 
@@ -11,6 +12,9 @@ class Storage
 //    {
 //        return new MySqlRepository();
 //    }
+
+    private static $cache= 'RedisCache';
+
 
     public static function findByID(string $model_class_name, $id): object
     {
@@ -27,6 +31,8 @@ class Storage
     public static function find(string $model_class_name, array $criteria): array
     {
 
+        trace("--------------------- find --------------");
+
         $table = $model_class_name::getTableName();
         $wher_str ='';
         if ($criteria) {
@@ -41,13 +47,40 @@ class Storage
 
         $qry = "SELECT * FROM $table  $wher_str ";
 
+        $json=json_encode([$qry, $criteria]);
 
-        $res = DB::query($qry, $criteria);
+//        $key=md5($json);
+        $key=($json);
+
+        trace($key);
+
+        $cache = new RedisCache();
+
+
+        if($cache->exists($key)) {
+
+            tt("get from cache : " . $key);
+            $json = $cache->get($key) ;
+            
+            tt($json);
+            
+            $res = json_decode($json, true );
+        }else{
+            tt("key:$key not found in cache");
+            $res = DB::query($qry, $criteria);
+            if($res) {
+                $cache->set($key, json_encode($res));
+            }
+
+        }
+
         $data = [];
         foreach ($res as $row) {
-
             $data[] = $model_class_name::makeFromArray($row);
         }
+
+
+
         return $data;
     }
 

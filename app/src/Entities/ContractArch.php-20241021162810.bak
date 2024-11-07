@@ -1,0 +1,61 @@
+<?php
+
+namespace App\Entities;
+
+use App\Framework\Entity;
+ 
+        
+    class ContractArch extends Entity{
+                
+        protected static string $_table_name = 'contract_arch';
+        
+        protected static array $_fillable = ['id','code','customer_id','start_date','end_date','status','created_at','updated_at',];
+
+        protected static array $_readonly = ['id','created_at','updated_at',];
+        
+        protected static array $_relations = [
+        ];
+        
+        
+        protected $id = null;
+        protected $code = null;
+        protected $customer_id = null;
+        protected $start_date = null;
+        protected $end_date = null;
+        protected $status = null;
+        protected $created_at = null;
+        protected $updated_at = null;
+        
+        public function __construct()
+        {
+             parent::__construct();    
+            
+
+        }
+        
+        # Getters
+        
+        public function getId() { return $this->id; }
+        public function getCode() { return $this->code; }
+        public function getCustomerId() { return $this->customer_id; }
+        public function getStartDate() { return $this->start_date; }
+        public function getEndDate() { return $this->end_date; }
+        public function getStatus() { return $this->status; }
+        public function getCreatedAt() { return $this->created_at; }
+        public function getUpdatedAt() { return $this->updated_at; } 
+        
+        # Setters
+        
+        public function setId($value):void { $this->id = $value; }
+        public function setCode($value):void { $this->code = $value; }
+        public function setCustomerId($value):void { $this->customer_id = $value; }
+        public function setStartDate($value):void { $this->start_date = $value; }
+        public function setEndDate($value):void { $this->end_date = $value; }
+        public function setStatus($value):void { $this->status = $value; }
+        public function setCreatedAt($value):void { $this->created_at = $value; }
+        public function setUpdatedAt($value):void { $this->updated_at = $value; } 
+        
+        
+    }
+        
+        

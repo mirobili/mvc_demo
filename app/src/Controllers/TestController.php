@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Framework\Cache\RedisCache;
 use App\Framework\Controller;
 
 class TestController extends Controller
@@ -10,7 +11,17 @@ class TestController extends Controller
 
     public function test()
     {
+        $redis = new RedisCache ;
+        $keys= $redis->getKeys();
 
+        sort($keys);
+        tt($keys);
+        foreach($keys as $key){
+            tt();
+            tt('/************************/');
+            tt($key);
+            tt($redis->get($key) );
+        }
     }
 
     public function testSingle($param1)
@@ -30,6 +41,8 @@ class TestController extends Controller
         return [$param1, $param2];
 
     }
+
+
 
 
 

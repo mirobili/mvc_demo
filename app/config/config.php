@@ -26,6 +26,9 @@ $db_config['pass']  =   $_ENV['MYSQL_PASSWORD'] ?? $LocalConfig['MYSQL_PASSWORD'
 $db_config['charset']=  $_ENV['MYSQL_CHARSET']  ?? $LocalConfig['MYSQL_CHARSET'];
 
 
+$_ENV['REDIS_HOST'] = $_ENV['REDIS_HOST'] ?? 'localhost';
+$_ENV['REDIS_PORT'] = $_ENV['REDIS_PORT'] ?? '6379';
+
 define("DB_CONNECTION", $db_config);
 
 

@@ -10,6 +10,7 @@ use App\Controllers\DefaultController;
 use App\Controllers\RatesController;
 use App\Controllers\Rest\CustomerModelRestController;
 use App\Controllers\Rest\CustomerRestController;
+use App\Controllers\TestController;
 use App\Framework\Router;
 
 
@@ -55,6 +56,7 @@ Router::route('GET', '/customer_demo/{id}/contract/', CustomerControllerDemo::cl
 
 
 Router::route('GET', '/test', DefaultController::class, 'index', []);
+Router::route('GET', '/test/test', TestController::class, 'test', []);
 //
 //Router::route('GET', '/customer_demo', CustomerControllerDemo::class, 'list',[$request]);
 //Router::route('GET', '/customer_demo/new', CustomerControllerDemo::class, 'form');

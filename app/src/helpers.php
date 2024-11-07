@@ -25,6 +25,12 @@ function trace($var='', $debug = true, $show_args= false): void
     echo '</pre>';
 }
 
+function tt($var='', ): void
+{
+
+    trace($var , $debug = false, $show_args= false);
+}
+
 function dd($var=''): void
 {
     trace($var);
