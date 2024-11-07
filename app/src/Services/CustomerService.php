@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Entities\Customer;
+
 class CustomerService
 {
     public function get($id)
@@ -10,7 +12,7 @@ class CustomerService
         return $customer;
     }
 
-    public function save($customer)
+    public function save( Customer $customer)
     {
         EntityService::save($customer);
     }

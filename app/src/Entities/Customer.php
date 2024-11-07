@@ -6,22 +6,21 @@ use App\Framework\Entity;
 
 class Customer extends Entity
 {
-    public static string $table_name = 'customer';
+    public static string $_table_name = 'customer';
    // protected string $id, $name, $address, $phone, $email,$created_at,$updated_at;
 
    // public static array $fillable = ['id', 'name', 'address', 'phone', 'email','created_at','updated_at'];
-    public static array $fillable = ['id', 'name', 'address', 'phone', 'email','created_at','updated_at'];
-    public static array $readonly = ['created_at','updated_at'];
+    //public static array $fillable = ['id', 'name', 'address', 'phone', 'email','created_at','updated_at'];
+    public static array $_fillable = ['id', 'name', 'address', 'phone', 'email','created_at','updated_at'];
 
-
-
+    public static array $_readonly = ['created_at','updated_at'];
 
     public function __construct(protected   $id='',protected string $name='', protected string $address='',  protected string $phone='', protected string $email='', protected string $created_at='', protected string $updated_at='')
     {
 
     }
 
-    protected static array $relations = [
+    protected static array $_relations = [
         "contracts" => [
             'type' => 'hasMany'
             , 'local' => 'id'
@@ -30,10 +29,11 @@ class Customer extends Entity
     ];
 
 
-    public function getContracts(){
-        if(!isset($this->collections['contract']))
-            $this->collections['contract']= $this->loadRelations('contracts');
-        return $this->collections['contract'];
+    public function getContracts()
+    {
+        if (!isset($this->_collections['contract']))
+            $this->_collections['contract'] = $this->loadRelations('contracts');
+        return $this->_collections['contract'];
     }
 
     public function getId()

@@ -27,20 +27,25 @@ class ContractTests extends TestCase
         $contract->setVar('id', null);
         //$contract->setId(null);
         $contract->save();
-        $this->assertInstanceOf(Contract::class, $contract);
+
+//        $this->assertInstanceOf(Contract::class, $contract);
 
     }
 
     public function test_update_Contract(): void
     {
         $contract = Contract::get(2);
-        trace($contract);
-        $contract->setCode('CDSM1000-050-1002222');
-        $contract->save();
-        $contract = Contract::get(2);
-        trace($contract);
+        // trace($contract);
 
-        $this->assertInstanceOf(Contract::class, $contract);
+        $new_contract_code = 'CDSM1000-050-1002222';
+        $contract->setCode($new_contract_code);
+        $contract->save();
+        $contract2 = Contract::get(2);
+      //   trace($contract);
+
+        $this->assertEquals($new_contract_code, $contract2->getCode());
+
+//        $this->assertInstanceOf(Contract::class, $contract);
 
     }
 

@@ -15,9 +15,7 @@ class DB
     {
 
         # Set db conn parameters in /config/config.php
-
        // $conn = DB_CONNECTION;
-
 
         $db_host = DB_CONNECTION['host'];
         $db_port = DB_CONNECTION['port'];
@@ -52,9 +50,6 @@ class DB
     public static function exec($sql, array $params = [])
     {
 
-//            trace($sql);
-//            trace($params);
-
         self::connect();
 
         $stmt = self::$pdo->prepare($sql);
@@ -66,20 +61,20 @@ class DB
         }
 
 
-        //  $stmt->debugDumpParams();
-        // Execute the statement and check for errors
-        if (!$stmt->execute()) {
-            echo "\nPDO::errorInfo():\n";
-            print_r($stmt->errorInfo()); // Use stmt's errorInfo to get specific error details
-            return false; // Return false on failure
-        }
+        try{
+             $stmt->execute();
+             if (!$stmt) {
+                 echo "\nPDO::errorInfo():\n";
+                 print_r(self::$pdo->errorInfo());
+             }
 
-        if (!$stmt) {
-            echo "\nPDO::errorInfo():\n";
-            print_r(self::$pdo->errorInfo());
-        }
+            return $stmt;
 
-        return $stmt;
+        }catch (PDOException $e) {
+
+            trace($e->getMessage());
+            throw $e;
+        }
     }
 
     public static function query($sql, array $params = [])
@@ -91,9 +86,15 @@ class DB
 
     public static function getByID($sql, $id)
     {
-        $stmt = self::exec($sql, $params = ['id' => $id]);
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $row;
+        try{
+            $stmt = self::exec($sql, $params = ['id' => $id]);
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $row;
+        }catch(PDOException $e){
+
+            trace($e->getMessage());
+            //throw $e;
+        }
     }
 
     public static function insert($sql, array $params)
@@ -102,7 +103,7 @@ class DB
         return self::$pdo->lastInsertId();
     }
 
-    public static function update(string $qry, array $params, $id)
+    public static function update(string $qry, array $params)
     {
         self::exec($qry, $params);
     }

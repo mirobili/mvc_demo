@@ -97,7 +97,10 @@ class HtmlTable
             $html .= '<tr class="'.$tr_class.'">';
             $html .= '<td>' . $rowNum . '</td>';
             foreach ($row as $td) {
-               // $td = is_string($td) ? $td : json_encode($td);
+
+
+                $td = (is_string($td) || is_int($td)) ? $td : ( count($td)? json_encode($td): '');
+              //  $td = (is_string($td) || is_int($td)) ? $td : HtmlTable::render($td);
                 $html .= '<td>' . $td . '</td>';
             }
             $html .= '</tr>';

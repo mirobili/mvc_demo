@@ -93,14 +93,13 @@ class HtmlDetails
         $html .= "\n<tbody>";
 
         $rowNum = 0;
+
         foreach ($tableData as $key => $value) {
 
-
+            $value = (is_string($value) || is_int($value)) ? $value : ( is_array($value)? json_encode($value): '');
             $key = $names[$rowNum] ?? $key;
 
-
             $html .= '<tr>';
-
             $html .= '<td>' . $key . '</td>';
             $html .= '<td>' . $value . '</td>';
 

@@ -18,6 +18,7 @@ class CustomerRestController extends RestControllerBase implements RestControlle
     {
 
         if (!isset($request['id'])) {
+
             return self::find($request);
         }
 
@@ -25,8 +26,10 @@ class CustomerRestController extends RestControllerBase implements RestControlle
 
         $customer = Customer::get($id);
         if (!$customer->getId()) {
+
             return self::restResponse(409, ["error" => "Object not found", "id" => $id]);
         }
+
         return self::restResponse(200, $customer->toArray());
     }
 
@@ -56,6 +59,8 @@ class CustomerRestController extends RestControllerBase implements RestControlle
 
     public static function actionPost($request)
     {
+
+
         try {
 
             if (!is_array($request) || count($request) == 0) {
@@ -87,11 +92,6 @@ class CustomerRestController extends RestControllerBase implements RestControlle
         }
     }
 
-    public static function actionPatch($request)
-    {
-        return self::actionPut($request);
-    }
-
     public static function actionPut($request)
     {
 
@@ -104,8 +104,6 @@ class CustomerRestController extends RestControllerBase implements RestControlle
             $ee = Customer::get($id);
 
             if (!$ee->getId()) {
-
-
                 return self::restResponse(409, ["error" => "Object not found", "id" => $id]);
             }
             $ee = Customer::updateFromArray($ee, $request);
@@ -119,6 +117,11 @@ class CustomerRestController extends RestControllerBase implements RestControlle
             return self::restResponse(409, ["error" => $e->getMessage()]);
         }
 
+    }
+
+    public static function actionPatch($request)
+    {
+        return self::actionPut($request);
     }
 //    public static function actionDelete( $request ){
 //         return self::restResponse(501, ["error"=>"action delete is not implemented"]);

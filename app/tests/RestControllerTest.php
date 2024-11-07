@@ -125,7 +125,9 @@ class RestControllerTest extends \PHPUnit\Framework\TestCase
 
         $rest_client = new RestClient();
         $res= $rest_client->CallAPI($method, $url, $data );
-      //   trace($res);
+        $this->assertJson($res);
+
+       trace($res);
 
 //        {"id":69,"name":"Miro","address":"Sofia+1000 88333333","phone":"+359+882220002","email":"miroslav.biliarski@gmail.com","created_at":"2024-10-10 21:48:38","updated_at":"2024-10-12 03:11:43"}
 

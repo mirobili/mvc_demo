@@ -24,7 +24,9 @@ class View
 
     protected static function populate($template, array $data)
     {
+
         foreach ($data as $key => $value) {
+            $value = is_scalar($value) ? $value : json_encode($value);
             $template = str_replace('{{' . $key . '}}', $value, $template);
         }
 

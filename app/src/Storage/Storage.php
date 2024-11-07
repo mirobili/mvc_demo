@@ -2,6 +2,7 @@
 
 namespace App\Storage;
 
+use App\Framework\Cache\RedisCache;
 use App\Framework\DB;
 use App\Framework\Repositories\MySqlRepository;
 
@@ -11,6 +12,9 @@ class Storage
 //    {
 //        return new MySqlRepository();
 //    }
+
+    private static $cache= 'RedisCache';
+
 
     public static function findByID(string $model_class_name, $id): object
     {
@@ -27,40 +31,77 @@ class Storage
     public static function find(string $model_class_name, array $criteria): array
     {
 
-        $table = $model_class_name::getTableName();
+        trace("--------------------- find --------------");
 
+        $table = $model_class_name::getTableName();
+        $wher_str ='';
         if ($criteria) {
             foreach ($criteria as $key => $value) {
-                $wher[] = " $key = :$key ";
+                //$wher[] = " $key = :$key ";
+                $wher[] = " $key like :$key ";
             }
 
             $wher_str = implode(' and ', $wher);
-            $qry = "SELECT * FROM $table where $wher_str ";
-        } else {
-            $qry = "SELECT * FROM $table";
+            $wher_str =  ' where '. $wher_str ;
         }
 
-        $res = DB::query($qry, $criteria);
+        $qry = "SELECT * FROM $table  $wher_str ";
+
+        $json=json_encode([$qry, $criteria]);
+
+//        $key=md5($json);
+        $key=($json);
+
+        trace($key);
+
+        $cache = new RedisCache();
+
+
+        if($cache->exists($key)) {
+
+            tt("get from cache : " . $key);
+            $json = $cache->get($key) ;
+            
+            tt($json);
+            
+            $res = json_decode($json, true );
+        }else{
+            tt("key:$key not found in cache");
+            $res = DB::query($qry, $criteria);
+            if($res) {
+                $cache->set($key, json_encode($res));
+            }
+
+        }
+
         $data = [];
         foreach ($res as $row) {
-
             $data[] = $model_class_name::makeFromArray($row);
         }
+
+
+
         return $data;
     }
 
+
     public static function save(\App\Framework\Entity $entity)
     {
-        $table_name = $entity::class::$table_name;
+
+
+        $table_name = $entity::class::table_name();
 
         $id = $entity->getId();
 
         $toArray = $entity->toArray();
 
-        foreach($entity::class::readonly() as $key) {
-            //trace("unsetting $key");
-            unset($toArray[$key]);
-           // unset($toArray['updated_at']);
+        foreach($toArray as $key=>$vv) {
+            if(!in_array($key, $entity::class::fillable()) ) {
+                 unset($toArray[$key]);
+            }
+            if(in_array($key, $entity::class::readonly())){
+                 unset($toArray[$key]);
+             }
         }// ()$
 
         unset($toArray['created_at']);
@@ -68,7 +109,7 @@ class Storage
 
         if ($entity->getId()) {
             $id = $entity->getId();
-            self::update($table_name, $toArray, $id);
+            self::update($table_name, $toArray);
         } else {
             unset($toArray['id']);
             $id = self::insert($table_name, $toArray);
@@ -76,7 +117,7 @@ class Storage
         }
     }
 
-    private static function update($table_name, array $params, $id)
+    private static function update($table_name, array $params )
     {
         unset($params['created_at']);
         unset($params['updated_at']);
@@ -93,7 +134,7 @@ class Storage
                 where id = :id
                  ";
 
-        DB::update($qry, $params, $id);
+        DB::update($qry, $params);
     }
 
     private static function insert($table_name, array $toArray): int
@@ -110,13 +151,14 @@ class Storage
         $values_str = implode(",", $values);
 
         $qry = "insert into $table_name ($fields_str) values ($values_str)";
-
+      //  dd($qry);
         foreach ($toArray as $key => $value) {
             $array[$key] = (string)$value;
         }
 
         $id = DB::insert($qry, $array);
 
+      //  dd($id);
         return $id;
     }
 }

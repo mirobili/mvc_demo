@@ -11,7 +11,7 @@ use App\Framework\RestControllerInterface;
 use App\Models\CustomerModel;
 use PHPUnit\Logging\Exception;
 
-class CustomerRestController extends RestControllerBase implements RestControllerInterface
+class CustomerModelRestController extends RestControllerBase implements RestControllerInterface
 {
 
     public static function actionGet($request)
@@ -23,7 +23,7 @@ class CustomerRestController extends RestControllerBase implements RestControlle
 
         $id = $request['id'] ?? 0;
 
-        $customer = Customer::get($id);
+        $customer = CustomerModel::get($id);
         if (!$customer->getId()) {
             return self::restResponse(409, ["error" => "Object not found", "id" => $id]);
         }
@@ -40,7 +40,7 @@ class CustomerRestController extends RestControllerBase implements RestControlle
                 return self::restResponse(409, ['error' => 'not a valid request array', 'request' => $request]);
             }
 
-            $customers_array = Customer::find($request);
+            $customers_array = CustomerModel::find($request);
             $aa = [];
             foreach ($customers_array as $customer) {
                 $aa[] = $customer->toArray();
@@ -69,7 +69,7 @@ class CustomerRestController extends RestControllerBase implements RestControlle
                 return self::restResponse(409, ['error' => 'Invalid input. "id" is not allowed in POST request', 'id' => $request['id']]);
             }
 
-            $ee = Customer::get($id);
+            $ee = CustomerModel::get($id);
 
             if (intval($ee->getId()) > 0) {
                 return self::restResponse(409, ['error' => 'Object already exists.', 'id' => $ee->getId()]);
@@ -101,14 +101,14 @@ class CustomerRestController extends RestControllerBase implements RestControlle
             if (!$id) {
                 return self::restResponse(409, ["error" => "ID not provided"]);
             }
-            $ee = Customer::get($id);
+            $ee = CustomerModel::get($id);
 
             if (!$ee->getId()) {
 
 
                 return self::restResponse(409, ["error" => "Object not found", "id" => $id]);
             }
-            $ee = Customer::updateFromArray($ee, $request);
+            $ee = CustomerModel::updateFromArray($ee, $request);
 
             $ee->save();
 

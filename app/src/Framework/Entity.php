@@ -6,28 +6,53 @@ use App\Storage\Storage;
 use Exception;
 
 class Entity implements EntityInterface
-{   public  static string $table_name = 'contract';
+{   protected  static string $_table_name = '';
 
-    protected static array $fillable = [];
-    protected static array $readonly = [];
-    protected static array $relations = [];
+    protected static array $_fillable = [];
+    protected static array $_readonly = ['created_at','updated_at'];
 
+    protected static array $_relations = [];
+    protected $id= null;
+    protected $_collections = [];
 
     public function __construct()
     {
 
 
     }
-    public static function filable() {
-        return static::$fillable;
+
+    public function __clone(){
+
+        $class_name = static::class;
+        $new_entity = new $class_name;
+        foreach ($this->fillable() as $key => $value) {
+            if($key == 'id') continue;
+            $new_entity->$key = $this->$key;
+        }
+        return $new_entity;
+    }
+
+
+    public static function fillable() {
+        return static::$_fillable;
     }
     public static function readonly() {
-        return static::$readonly;
+        return static::$_readonly;
+    }
+
+    public static function table_name() {
+        if(!static::$_table_name) {
+            throw new Exception('Entity $_table_name (for '. static::class .')  not set');
+        }
+        return static::$_table_name;
     }
 
     static function getTableName() {
 
-        return static::$table_name; //$table_name;
+        if(!static::$_table_name) {
+            throw new Exception('Entity $_table_name (for '. static::class .')  not set');
+        }
+        return static::$_table_name;
     }
 
     public static function getEntity($class, $id)
@@ -54,13 +79,13 @@ class Entity implements EntityInterface
 
     public function  setVar($name, $value)
     {
-        if(in_array($name ,static::$fillable)) {
+        if(in_array($name ,static::$_fillable)) {
             $this->$name = $value;
         }
     }
     public function getVar($name)
     {
-        if(in_array($name ,static::$fillable)) {
+        if(in_array($name ,static::$_fillable)) {
             return $this->$name??null;
         }
     }
@@ -74,50 +99,25 @@ class Entity implements EntityInterface
 
     public static function makeFromArray($array)
     {
-
-
-
         $class_name =  static::class;
-
-        ///$object= new $class_name();
-//        if(isset($array['id'])){
-//            $object = $class_name::get($array['id']);
-//        }else{
-//            $object= new $class_name();
-//        }
         $object= new $class_name();
-//        return $object;
-//
-//        dd($class_name);
-//        return $class_name;
-//
-//
-//
-//        trace($class_name);
-//        trace($array);
-//        trace($object);
 
-
-
-        foreach(static::$fillable as $key  ){
-            if(isset($array[$key])){
+        foreach(static::$_fillable as $key  ){
+//            if(isset($array[$key])){
 
 //                $setter_name = self::generateAccessor($key,'set');
 //                $object->$setter_name($array[$key]);
-                $object->setVar( $key , $array[$key]);
+              $object->setVar( $key , $array[$key]??'');
 
-            }
+  //          }
         }
         return $object;
     }
 
     public static function updateFromArray($object, $array)
     {
-        //$class_name =  static::class;
-       // $object= new $class_name();
-//        trace($object);
-//        trace($array);
-        foreach(static::$fillable as $key  ){
+
+        foreach(static::$_fillable as $key  ){
             if(isset($array[$key])){
 //                $setter_name = self::generateAccessor($key,'set');
 //                $object->$setter_name($array[$key]);
@@ -130,7 +130,6 @@ class Entity implements EntityInterface
 
     }
 
-    protected $id= null;
 
     public function getId()
     {
@@ -156,7 +155,20 @@ class Entity implements EntityInterface
     public function toArray(): array
     {
       //  return (array)$this;
-        return get_object_vars($this);
+
+//        foreach(self::fillable() as $field){
+//            $vars[$field] = $this->$field;
+//        }
+
+
+         $vars= get_object_vars($this);
+
+        foreach($vars as $kk=>$vv){
+            if(mb_strpos($kk,'_') === 0)
+               unset($vars[$kk]);
+        }
+
+        return $vars;
     }
 
     public function __toString(): string
@@ -168,6 +180,8 @@ class Entity implements EntityInterface
 
     public function save(): void
     {
+
+      //  dd($this->toArray());
         $id = Storage::save($this);
         if($id && !$this->getId() ){
             $this->setId($id);
@@ -175,8 +189,13 @@ class Entity implements EntityInterface
    }
 
 
-    public static function get($id): object
+    public static function get(?int $id=null): object
     {
+        if(!$id){
+            $class_name = static::class;
+            return new $class_name();
+//            return new static::class;
+        }
         return static::findByID($id);
     }
 
@@ -196,9 +215,8 @@ class Entity implements EntityInterface
 
     public static function find(array $criteria=[]): array
     {
-
         return Storage::find(static::class, $criteria);
-   }
+    }
 
     public static function delete()
     {
@@ -227,7 +245,7 @@ class Entity implements EntityInterface
 //            ]
 //        ];
 
-        foreach (static::$relations as $name => $rel) {
+        foreach (static::$_relations as $name => $rel) {
 
 
             if($key && $key !== $name){

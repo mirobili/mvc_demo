@@ -30,28 +30,28 @@ class Model extends ModelInterface
 
     }
 
-    public static function update(Model $model):void
+    public static function update(Model $model)
     {
         $repo= Storage::getReporsitory(self::class);
         return $repo->update(self::class, $criteria);
     }
 
-    public static function create(Model $model):void
+    public static function create(Model $model)
     {
         $repo= Storage::getReporsitory(self::class);
         return $repo->create(self::class);
     }
 
-    public static function insert(Model $model):void
+    public static function insert(Model $model)
     {
         $repo= Storage::getReporsitory(self::class);
         return $repo->insert(self::class);
     }
-    public static function create(Model $model):void
-    {
-        $repo= Storage::getReporsitory(self::class);
-        return $repo->create(self::class);
-    }
+//    public static function create(Model $model)
+//    {
+//        $repo= Storage::getReporsitory(self::class);
+//        return $repo->create(self::class);
+//    }
 
     public static function findOrCreate($id): ModelInterface
     {
@@ -59,6 +59,11 @@ class Model extends ModelInterface
         return  $repo->find(self::class, $id)?? $repo->create(self::class);
     }
 
+
+    public   function getId(): ?int
+    {
+        return $this->id;
+    }
 
 
 }
